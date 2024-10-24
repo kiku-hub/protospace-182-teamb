@@ -1,24 +1,41 @@
-# README
+# ProtoSpaceのER図
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
 
-Things you may want to cover:
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| name               | string | null: false               |
+| profile            | text   | null: false               |
+| occupation         | text   | null: false               |
+| position           | text   | null: false               |
 
-* Ruby version
+## アソシエーション
+has_many :prototypes: 1人のユーザーは複数のプロトタイプを作成できる。
+has_many :comments: 1人のユーザーは複数のコメントを残すことができる。
 
-* System dependencies
+## prototypes テーブル
 
-* Configuration
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| title      | string     | null: false                    |
+| catch_copy | text       | null: false                    |
+| concept    | text       | null: false                    |
+| user       | references | null: false, foreign_key: true |
 
-* Database creation
+## アソシエーション
+belongs_to :user: 各プロトタイプは1人のユーザーに属する。
+has_many :comments: 1つのプロトタイプには複数のコメントが関連付けられる。
 
-* Database initialization
+## comments テーブル
 
-* How to run the test suite
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| content   | text       | null: false                    |
+| prototype | references | null: false, foreign_key: true |
+| user      | references | null: false, foreign_key: true |
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## アソシエーション
+belongs_to :user: 各コメントは1人のユーザーによって作成される。
+belongs_to :prototype: 各コメントは特定のプロトタイプに関連付けられる。
