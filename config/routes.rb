@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root to: 'prototypes#index'  # ルートパスをprototypesのindexアクションに設定
+  resources :prototypes, only: [:index]  # prototypesコントローラーのindexアクションのみを定義
 
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
