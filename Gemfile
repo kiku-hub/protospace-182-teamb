@@ -80,3 +80,7 @@ group :production do
 end
 
 gem 'devise'
+
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
+# ↑画像投稿機能実装のため、prototype・実装課題カリキュラム3回目範囲
