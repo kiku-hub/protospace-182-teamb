@@ -1,11 +1,20 @@
-<div class="card">
-  <%= link_to image_tag(prototype.image, class: :card__img), root_path %>
-  <div class="card__body">
-    <%= link_to prototype.title, root_path, class: :card__title %>
-    <p class="card__summary">
-      <%= prototype.catch_copy %>
-    </p>
-    <%= link_to "by #{prototype.user.name}", user_path(prototype.user), class: :card__user %>
+<div class="content_post" style="background-image: url(<%= prototype.image %>);">
+  <div class="more">
+    <span><%= image_tag 'arrow_top.png' %></span>
+    <ul class="more_list">
+      <li>
+        <%= link_to '詳細', prototype_path(prototype) %>
+      </li>
+      <li>
+        <%= link_to '編集', edit_prototype_path(prototype) %>
+      </li>
+      <li>
+        <%= link_to '削除', prototype_path(prototype), data: { turbo_method: :delete } %>
+      </li>
+    </ul>
   </div>
+  <p><%= prototype.text %></p>
+  <span class="name">
+    <%= prototype.name %>
+  </span>
 </div>
-
