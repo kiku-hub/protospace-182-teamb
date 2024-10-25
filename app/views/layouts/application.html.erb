@@ -18,18 +18,15 @@
           <div class="nav__left">
             <%= link_to image_tag("logo.png", class: :logo), root_path %>
           </div>
-          <%# ログインしているときは以下を表示するようにしましょう %>
-            <%# <div class="nav__right"> %>
-              <%# <%= link_to "ログアウト", root_path, class: :nav__logout %>
-              <%# <%= link_to "New Proto", root_path, class: :nav__btn %>
-            <%# </div> %>
-          <%# // ログインしているときは上記を表示するようにしましょう %>
-          <%# ログインしていないときは以下を表示するようにしましょう %>
-            <div class="nav__right">
+          <div class="nav__right"> 
+            <% if user_signed_in? %>
+              <%= link_to "ログアウト", root_path, method: :delete, class: :nav__logout %>
+              <%= link_to "New Proto", root_path, class: :nav__btn %> 
+            <% else %>
               <%= link_to "ログイン", new_user_session_path, class: :nav__btn %>
               <%= link_to "新規登録", new_user_registration_path, class: :nav__btn %>
-            </div>
-          <%# // ログインしていないときは上記を表示するようにしましょう %>
+            <% end %> 
+          </div> 
         </div>
       </div>
     </header>
