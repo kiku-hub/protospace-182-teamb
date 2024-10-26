@@ -6,12 +6,13 @@
       <%= link_to "by プロトタイプの投稿者", root_path, class: :prototype__user %>
 
       <!-- プロトタイプの操作（編集・削除） -->
-      <% if @prototype && user_signed_in? && current_user.id == @prototype.user_id %>
-        <div class="prototype__manage">
-          <%= link_to "編集する", root_path, class: :prototype__btn %>
-          <%= link_to "削除する", root_path, class: :prototype__btn %>
-        </div>
-      <% end %>
+<% if @prototype && user_signed_in? && current_user.id == @prototype.user_id %>
+  <div class="prototype__manage">
+    <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %> <!-- 編集画面へのリンク -->
+    <%= link_to "削除する", prototype_path(@prototype), method: :delete, class: :prototype__btn %> <!-- 削除アクション -->
+  </div>
+<% end %>
+
 
      <!-- プロトタイプの画像 -->
    <div class="prototype__image">
