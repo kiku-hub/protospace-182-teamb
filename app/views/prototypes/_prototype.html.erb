@@ -1,16 +1,18 @@
-<div class="content_post" style="background-image: url(<%= url_for(prototype.image) %>);">
+<div class="content_post">
+  <%= link_to prototype_path(prototype) do %>
+    <%= image_tag url_for(prototype.image) %>
+  <% end %>
   <div class="more">
-    <span><%= image_tag url_for(prototype.image) %></span>
     <ul class="more_list">
       <li>
-        <%= link_to '詳細', prototype_path(prototype) %>
+        <%# <%= link_to '詳細', prototype_path(prototype) %> 
       </li>
       <% if user_signed_in? && current_user.id == prototype.user_id %>
         <li>
-          <%= link_to '編集', edit_prototype_path(prototype) %>
+          <%# <%= link_to '編集', edit_prototype_path(prototype) %> 
         </li>
         <li>
-          <%= link_to '削除', prototype_path(prototype), data: { turbo_method: :delete } %>
+          <%# <%= link_to '削除', prototype_path(prototype), data: { turbo_method: :delete } %> 
         </li>
       <% end %>
     </ul>
