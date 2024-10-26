@@ -1,6 +1,8 @@
 <div class="main">
   <div class="inner">
     <div class="user__wrapper">
+
+      <!-- ユーザー情報セクション -->
       <h2 class="page-heading">
         <%= "#{@user.name}さんの情報" %>
       </h2>
@@ -24,18 +26,21 @@
           </tr>
         </tbody>
       </table>
+
+      <!-- ユーザーのプロトタイプセクション -->
       <h2 class="page-heading">
         <%= "#{@user.name}さんのプロトタイプ" %>
       </h2>
       <div class="user__card">
         <% if @prototypes.present? %>
           <% @prototypes.each do |prototype| %>
-            <%= render partial: "prototype", locals: { prototype: prototype } %>
+            <%= render partial: "prototypes/prototype", collection: @prototypes %>
           <% end %>
         <% else %>
-          <p>プロトタイプがありません。</p>
+          <p>プロトタイプがまだありません。</p>
         <% end %>
       </div>
+
     </div>
   </div>
 </div>

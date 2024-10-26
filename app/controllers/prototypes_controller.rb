@@ -1,4 +1,7 @@
 class PrototypesController < ApplicationController
+  before_action :set_prototype, only: [:edit, :update, :destroy]
+  before_action :authorize_user, only: [:edit, :update, :destroy]
+
   def index
     @prototypes = Prototype.includes(:user).all
     # includesを追加してN+1問題を回避
@@ -16,7 +19,7 @@ class PrototypesController < ApplicationController
   end
 
   def edit
-    @prototype = Prototype.find(params[:id])
+    # ここに投稿者以外のアクセス制御が入ります
   end
 
   def update
@@ -26,7 +29,7 @@ class PrototypesController < ApplicationController
     else
       render :edit
     end
-  end # ここにendを追加
+  end
 
   def create
     @prototype = Prototype.new(prototype_params)
@@ -45,7 +48,17 @@ class PrototypesController < ApplicationController
 
   private
 
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
+  end
+
+  def authorize_user
+    return if user_signed_in? && @prototype.user_id == current_user.id
+
+    redirect_to action: :index, alert: 'このプロトタイプの編集権限がありません。'
+  end
+
   def prototype_params
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
-end # ここにendを追加
+end
