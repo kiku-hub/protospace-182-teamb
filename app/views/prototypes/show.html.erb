@@ -9,7 +9,7 @@
       <% if user_signed_in? && @prototype.user == current_user %> <!-- ログインユーザーが投稿者であれば -->
         <div class="prototype__manage">
           <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %> <!-- 編集リンク -->
-          <%= link_to "削除する", prototype_path(@prototype), method: :delete, data: { confirm: "本当に削除しますか？" }, class: :prototype__btn %> <!-- 削除リンク -->
+          <%= link_to "削除する", prototype_path(@prototype), data: { turbo_method: :delete, confirm: "本当に削除しますか？" }, class: "prototype__btn" %> <!-- 削除リンク -->
         </div>
       <% end %>
 

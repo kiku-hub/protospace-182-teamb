@@ -37,6 +37,12 @@ class PrototypesController < ApplicationController
     end
   end
 
+  def destroy
+    @prototype = Prototype.find(params[:id]) # IDをもとにプロトタイプを取得
+    @prototype.destroy # プロトタイプを削除
+    redirect_to root_path, notice: 'プロトタイプが削除されました。' # トップページにリダイレクト
+  end
+
   private
 
   def prototype_params
