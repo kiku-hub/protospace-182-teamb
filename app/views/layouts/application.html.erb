@@ -20,7 +20,11 @@
           <% if user_signed_in? %>
             <div class="nav__right">
               <%= link_to "ログアウト", destroy_user_session_path,data: { turbo_method: :delete }, class: :nav__logout %>
-              <%= link_to "New Proto", root_path, class: :nav__btn %>
+              <%= link_to "New Proto", new_prototype_path, class: :nav__btn %>
+<%# resources :prototypes とルーティングで定義すると、Railsは新規作成ページのパスとして new_prototype_path を自動生成します。 %>
+<%# これを利用することで、新規作成フォームに簡単にアクセスすることができます。 %>
+
+
             </div>
           <% else %>
             <div class="nav__right">

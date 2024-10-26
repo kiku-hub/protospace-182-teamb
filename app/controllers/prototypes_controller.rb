@@ -5,25 +5,25 @@ class PrototypesController < ApplicationController
   end
 
   def show
-    @prototype = Prototype.find(params[:id])
+    @user = User.find(params[:id])
+    @prototypes = @user.prototypes # ユーザーに関連するプロトタイプを取得
   end
-end
 
-# @prototypes = Prototype.includes(:user).all:
-# Prototypeモデルのすべてのレコードを取得し、@prototypesに代入
-# このとき、関連するUserモデルも一緒にロードする
-def new
-  @prototype = Prototype.new
-end
-
-def create
-  @prototype = Prototype.new(prototype_params)
-  if @prototype.save
-    redirect_to root_path
-  else
-    render :new, status: :unprocessable_entity
+  # @prototypes = Prototype.includes(:user).all:
+  # Prototypeモデルのすべてのレコードを取得し、@prototypesに代入
+  # このとき、関連するUserモデルも一緒にロードする
+  def new
+    @prototype = Prototype.new
   end
-end
+
+  def create
+    @prototype = Prototype.new(prototype_params)
+    if @prototype.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
   # prototype_paramsメソッドを使って受け取ったフォームデータから
   # 新しいPrototypeオブジェクトを生成し、保存を試みます。保存に
   # 成功すれば、ルートパスにリダイレクトし、失敗すれば新規作成フォームを再表示します。
@@ -36,6 +36,7 @@ end
 
   private
 
-def prototype_params
-  params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
+  def prototype_params
+    params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
+  end
 end

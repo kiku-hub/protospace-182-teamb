@@ -1,6 +1,7 @@
 <div class="content_post" style="background-image: url(<%= prototype.image %>);">
   <div class="more">
-    <span><%= image_tag 'arrow_top.png' %></span>
+  <span><%= image_tag prototype.image %></span>
+    <%# ここのimage_tagの後ろ''を変数にすればいろんな画像載せれる %>
     <ul class="more_list">
       <li>
         <%= link_to '詳細', prototype_path(prototype) %>
@@ -13,8 +14,7 @@
       </li>
     </ul>
   </div>
-  <p><%= prototype.text %></p>
   <span class="name">
-    <%= prototype.name %>
+    <%= prototype.user.name %>
   </span>
 </div>
