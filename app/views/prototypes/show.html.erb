@@ -31,6 +31,7 @@
         </div>
       </div>
       
+
       <div class="prototype__comments">
         <% if user_signed_in? %> <!-- ログインユーザーにはコメント投稿フォームを表示 -->
           <%= form_with model: [@prototype, Comment.new], local: true do |f| %> <!-- プロトタイプに紐づく新しいコメントを作成 -->
@@ -55,6 +56,9 @@
           <% end %>
         </ul>
       </div>
-    </div>
-  </div>
+     </div>
+   </div>
 </main>
+
+
+
