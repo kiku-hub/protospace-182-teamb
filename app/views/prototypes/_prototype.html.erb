@@ -1,7 +1,6 @@
-<div class="content_post" style="background-image: url(<%= prototype.image %>);">
+<div class="content_post" style="background-image: url(<%= url_for(prototype.image) %>);">
   <div class="more">
-    <span><%= image_tag prototype.image %></span>
-    <%# ここのimage_tagの後ろ''を変数にすればいろんな画像載せれる %>
+    <span><%= image_tag url_for(prototype.image) %></span>
     <ul class="more_list">
       <li>
         <%= link_to '詳細', prototype_path(prototype) %>
@@ -16,10 +15,7 @@
       <% end %>
     </ul>
   </div>
-
   <span class="name">
     <%= prototype.user.name %>
   </span>
 </div>
-
-<%# ここは部分テンプレート、親はshowhtml %>
