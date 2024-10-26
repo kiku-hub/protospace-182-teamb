@@ -4,23 +4,23 @@
       <p class="prototype__heading">
         <%= @prototype.title %> <!-- プロトタイプのタイトルを表示 -->
       </p>
-      <%= link_to "by #{@prototype.user.username}", user_path(@prototype.user), class: :prototype__user %> <!-- 投稿者のユーザー名をリンクに変更 -->
-      
+      <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %> <!-- 投稿者のユーザー名をリンクに変更 -->
+
       <% if user_signed_in? && @prototype.user == current_user %> <!-- ログインユーザーが投稿者であれば -->
         <div class="prototype__manage">
           <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %> <!-- 編集リンク -->
           <%= link_to "削除する", prototype_path(@prototype), method: :delete, data: { confirm: "本当に削除しますか？" }, class: :prototype__btn %> <!-- 削除リンク -->
         </div>
       <% end %>
-      
+
       <div class="prototype__image">
-        <%= image_tag @prototype.image.url %> <!-- プロトタイプの画像を表示 -->
+        <%= image_tag url_for(@prototype.image) %> <!-- プロトタイプの画像を表示 -->
       </div>
       <div class="prototype__body">
         <div class="prototype__detail">
           <p class="detail__title">キャッチコピー</p>
           <p class="detail__message">
-            <%= @prototype.catchphrase %> <!-- プロトタイプのキャッチコピーを表示 -->
+            <%= @prototype.catch_copy %> <!-- プロトタイプのキャッチコピーを表示 -->
           </p>
         </div>
         <div class="prototype__detail">
@@ -30,7 +30,6 @@
           </p>
         </div>
       </div>
-      
 
       <div class="prototype__comments">
         <% if user_signed_in? %> <!-- ログインユーザーにはコメント投稿フォームを表示 -->
@@ -48,17 +47,18 @@
         <% end %>
 
         <ul class="comments_lists">
-          <% @prototype.comments.each do |comment| %> <!-- プロトタイプに紐づくコメントを表示 -->
-            <li class="comments_list">
-              <%= comment.content %> <!-- コメントのテキストを表示 -->
-              <%= link_to "(#{comment.user.username})", user_path(comment.user), class: :comment_user %> <!-- コメントしたユーザー名を表示 -->
-            </li>
+          <% if @prototype.comments.present? %> <!-- コメントが存在する場合のみループを実行 -->
+            <% @prototype.comments.each do |comment| %> <!-- プロトタイプに紐づくコメントを表示 -->
+              <li class="comments_list">
+                <%= comment.content %> <!-- コメントのテキストを表示 -->
+                <%= link_to "(#{comment.user.name})", user_path(comment.user), class: :comment_user %> <!-- コメントしたユーザー名を表示 -->
+              </li>
+            <% end %>
+          <% else %>
+            <p>コメントはまだありません。</p> <!-- コメントがない場合のメッセージ -->
           <% end %>
         </ul>
       </div>
-     </div>
-   </div>
+    </div>
+  </div>
 </main>
-
-
-

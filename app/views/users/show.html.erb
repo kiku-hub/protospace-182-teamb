@@ -26,14 +26,15 @@
       </table>
       <h2 class="page-heading">
         <%= "#{@user.name}さんのプロトタイプ" %>
-      <h2 class="page-heading">
-  <%= "#{@user.name}さんのプロトタイプ" %>
-</h2>
-<div class="user__card">
-  <% @prototypes.each do |prototype| %>
-    <%= render partial: "prototype", locals: { prototype: prototype } %>
-  <% end %>
-</div>
+      </h2>
+      <div class="user__card">
+        <% if @prototypes.present? %>
+          <% @prototypes.each do |prototype| %>
+            <%= render partial: "prototype", locals: { prototype: prototype } %>
+          <% end %>
+        <% else %>
+          <p>プロトタイプがありません。</p>
+        <% end %>
       </div>
     </div>
   </div>
