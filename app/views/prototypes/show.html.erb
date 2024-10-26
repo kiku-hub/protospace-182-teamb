@@ -1,7 +1,7 @@
 <main class="main">
   <div class="inner">
     <div class="prototype__wrapper">
-      <p class="prototype__heading">
+      <p class="prototype__heading" style="font-size: 30px; text-align: center;">
         <%= @prototype.title %> <!-- プロトタイプのタイトルを表示 -->
       </p>
       <%= link_to "by #{@prototype.user.name}", user_path(@prototype.user), class: :prototype__user %> <!-- 投稿者のユーザー名をリンクに変更 -->

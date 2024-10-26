@@ -33,9 +33,7 @@
       </h2>
       <div class="user__card">
         <% if @prototypes.present? %>
-          <% @prototypes.each do |prototype| %>
             <%= render partial: "prototypes/prototype", collection: @prototypes %>
-          <% end %>
         <% else %>
           <p>プロトタイプがまだありません。</p>
         <% end %>

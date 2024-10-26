@@ -6,9 +6,38 @@
         <%= link_to "#{current_user.name}さん", user_path(current_user), class: :greeting__link %>
       </div>
     <% end %>
+    
     <div class="card__wrapper">
-      <%= render partial: "prototypes/prototype", collection: @prototypes %>
-      <%# 投稿機能実装後、部分テンプレートでプロトタイプ投稿一覧を表示する %>
+      <% @prototypes.each do |prototype| %>
+        <div class="card">
+          <!-- プロトタイプの画像を表示（クリックすると詳細ページに遷移） -->
+          <div class="card__image-wrapper">
+            <% if prototype.image.attached? %>
+              <%= link_to prototype_path(prototype) do %>
+                <%= image_tag prototype.image, alt: "#{prototype.title}の画像", class: "card__image" %>
+              <% end %>
+            <% else %>
+              <%= link_to prototype_path(prototype) do %>
+                <%= image_tag 'default_image.png', alt: "デフォルト画像", class: "card__image" %>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="card__body">
+            <!-- タイトルを大文字で表示し、詳細ページリンクにする -->
+            <a class="card__title" href="<%= prototype_path(prototype) %>">
+              <%= prototype.title.upcase %>
+            </a>
+            <!-- キャッチコピーとコンセプトを小文字で表示 -->
+            <p class="card__summary"><%= prototype.catch_copy.downcase %></p>
+            
+            <!-- 投稿者名を「by ○○」の形式で表示 -->
+            <a class="card__user" href="<%= user_path(prototype.user) %>">
+              by <%= prototype.user.name %>
+            </a>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </main>
