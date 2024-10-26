@@ -7,6 +7,7 @@ class PrototypesController < ApplicationController
   def show
     @user = User.find(params[:id])
     @prototypes = @user.prototypes # ユーザーに関連するプロトタイプを取得
+    @comment = Comment.new
   end
 
   # @prototypes = Prototype.includes(:user).all:
