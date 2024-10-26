@@ -6,29 +6,41 @@
       <%= link_to "by プロトタイプの投稿者", root_path, class: :prototype__user %>
 
       <!-- プロトタイプの操作（編集・削除） -->
-      <% if user_signed_in? && current_user.id == @prototype.user_id %>
-        <div class="prototype__manage">
-          <%= link_to "編集する", root_path, class: :prototype__btn %>
-          <%= link_to "削除する", root_path, class: :prototype__btn %>
-        </div>
+<% if @prototype && user_signed_in? && current_user.id == @prototype.user_id %>
+  <div class="prototype__manage">
+    <%= link_to "編集する", edit_prototype_path(@prototype), class: :prototype__btn %> <!-- 編集画面へのリンク -->
+    <%= link_to "削除する", prototype_path(@prototype), method: :delete, class: :prototype__btn %> <!-- 削除アクション -->
+  </div>
+<% end %>
+
+
+     <!-- プロトタイプの画像 -->
+   <div class="prototype__image">
+   <% if @prototype %>
+  <%= image_tag url_for(@prototype.image) if @prototype.image.attached? %>
+    <% else %>
+    <p>画像が登録されていません。</p>
       <% end %>
-
-      <!-- プロトタイプの画像 -->
-      <div class="prototype__image">
-        <%= image_tag "プロトタイプの画像" %>
       </div>
 
-      <!-- プロトタイプの詳細情報 -->
-      <div class="prototype__body">
-        <div class="prototype__detail">
-          <p class="detail__title">キャッチコピー</p>
-          <p class="detail__message"><%= "プロトタイプのキャッチコピー" %></p>
-        </div>
-        <div class="prototype__detail">
-          <p class="detail__title">コンセプト</p>
-          <p class="detail__message"><%= "プロトタイプのコンセプト" %></p>
-        </div>
-      </div>
+
+
+
+    <!-- プロトタイプの詳細情報 -->
+  <div class="prototype__body">
+   <div class="prototype__detail">
+    <p class="detail__title">キャッチコピー</p>
+    <p class="detail__message">
+      <%= @prototype.catch_copy %>
+    </p>
+    </div>
+    <div class="prototype__detail">
+     <p class="detail__title">コンセプト</p>
+     <p class="detail__message">
+      <%= @prototype.concept %>
+     </p>
+    </div>
+  </div>
 
       <!-- プロトタイプのコメント -->
       <div class="prototype__comments">
@@ -53,15 +65,18 @@
         </ul>
       </div>
 
-      <!-- プロトタイプの一覧を追加する部分 -->
-      <h1><%= @user.name %>のプロトタイプ一覧</h1>
-      <% @prototypes.each do |prototype| %>
-        <div class="prototype">
-          <h2><%= link_to prototype.name, prototype_path(prototype) %></h2>
-          <p><%= prototype.description %></p>
-        </div>
-      <% end %>
-
-    </div>
+    <!-- プロトタイプの一覧を追加する部分 -->
+<h1><%= @user.name %>さんのプロトタイプ一覧</h1>
+<% @prototypes.each do |prototype| %>
+  <div class="prototype">
+    <h2><%= link_to prototype.title, prototype_path(prototype) %></h2>
+    <p class="user-profile">
+      <span class="occupation"><%= @user.occupation %></span> /
+      <span class="position"><%= @user.position %></span>
+    </p>
+    <p class="prototype-concept"><%= prototype.concept %></p>
   </div>
-</main>
+<% end %>
+
+
+

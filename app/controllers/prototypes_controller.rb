@@ -5,8 +5,9 @@ class PrototypesController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @prototypes = @user.prototypes # ユーザーに関連するプロトタイプを取得
+    @prototype = Prototype.find(params[:id])
+    @user = @prototype.user
+    @prototypes = @user.prototypes
   end
 
   # @prototypes = Prototype.includes(:user).all:
