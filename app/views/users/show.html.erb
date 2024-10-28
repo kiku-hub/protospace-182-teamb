@@ -28,16 +28,31 @@
       </table>
 
       <!-- ユーザーのプロトタイプセクション -->
-      <h2 class="page-heading">
-        <%= "#{@user.name}さんのプロトタイプ" %>
-      </h2>
-      <div class="user__card">
-        <% if @prototypes.present? %>
-            <%= render partial: "prototypes/prototype", collection: @prototypes %>
-        <% else %>
-          <p>プロトタイプがまだありません。</p>
+      <h3>プロトタイプ一覧</h3> <!-- セクション見出し -->
+      <% if @user.prototypes.any? %>
+        <% @user.prototypes.each do |prototype| %>
+          <div class="card__body">
+            <!-- 画像をリンクで囲む -->
+            <% if prototype.image.attached? %>
+              <%= link_to image_tag(prototype.image, alt: prototype.title, class: "prototype-image"), prototype_path(prototype) %>
+            <% else %>
+              <p>画像がありません。</p>
+            <% end %>
+            <!-- タイトルを大文字で表示し、詳細ページリンクにする -->
+            <a class="card__title" href="<%= prototype_path(prototype) %>">
+              <%= prototype.title.upcase %>
+            </a>
+            <!-- キャッチコピーとコンセプトを小文字で表示 -->
+            <p class="card__summary"><%= prototype.catch_copy.downcase %></p>
+            <!-- 投稿者名を「by ○○」の形式で表示 -->
+            <a class="card__user" href="<%= user_path(prototype.user) %>">
+              by <%= prototype.user.name %>
+            </a>
+          </div>
         <% end %>
-      </div>
+      <% else %>
+        <p>プロトタイプがありません。</p>
+      <% end %>
 
     </div>
   </div>
