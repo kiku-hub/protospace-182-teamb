@@ -42,22 +42,22 @@
               <%= f.submit "送信する", class: :form__btn %> <!-- 送信ボタン -->
             </div>
           <% end %>
-        <% else %>
-          <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong> <!-- ログインしていない場合のメッセージ -->
-        <% end %>
 
-        <ul class="comments_lists">
-          <% if @prototype.comments.present? %> <!-- コメントが存在する場合のみループを実行 -->
-            <% @prototype.comments.each do |comment| %> <!-- プロトタイプに紐づくコメントを表示 -->
-              <li class="comments_list">
-                <%= comment.content %> <!-- コメントのテキストを表示 -->
-                <%= link_to "(#{comment.user.name})", user_path(comment.user), class: :comment_user %> <!-- コメントしたユーザー名を表示 -->
-              </li>
+          <ul class="comments_lists">
+            <% if @prototype.comments.present? %> <!-- コメントが存在する場合のみループを実行 -->
+              <% @prototype.comments.each do |comment| %> <!-- プロトタイプに紐づくコメントを表示 -->
+                <li class="comments_list">
+                  <%= comment.content %> <!-- コメントのテキストを表示 -->
+                  <%= link_to "(#{comment.user.name})", user_path(comment.user), class: :comment_user %> <!-- コメントしたユーザー名を表示 -->
+                </li>
+              <% end %>
+            <% else %>
+              <p>コメントはまだありません。</p> <!-- コメントがない場合のメッセージ -->
             <% end %>
-          <% else %>
-            <p>コメントはまだありません。</p> <!-- コメントがない場合のメッセージ -->
-          <% end %>
-        </ul>
+          </ul>
+        <% else %>
+          <strong><p>※※※ コメントの表示には新規登録/ログインが必要です ※※※</p></strong> <!-- ログインしていない場合のメッセージ -->
+        <% end %>
       </div>
     </div>
   </div>
